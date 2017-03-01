@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS class04</title>
+    <style type="text/css">
+    html,
+    body,
+    section,
+    div,
+    input,
+    span {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .control {
+        text-align: center;
+        font-size: 20px;
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px auto;
+    }
+    
+    .control input {
+        width: 200px;
+        height: 40px;
+        box-sizing: border-box;
+        line-height: 38px;
+        font-size: 20px;
+    }
+    
+    .control span {
+        padding: 0 10px;
+        margin-left: 10px;
+        background: #4dbdc3;
+        color: #fff;
+        line-height: 40px;
+        display: inline-block;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    #show {
+        text-align: center;
+        width: 800px;
+        margin: 20px auto;
+    }
+    
+    #show span {
+        padding: 10px 20px;
+        background: #f11200;
+        display: inline-block;
+        margin-left: 20px;
+        color: #fff;
+        font-size: 15px;
+        margin-top: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="control">
+            <input type="text" id="text">
+            <span id="left_in">左侧入</span>
+            <span id="right_in">右侧入</span>
+            <span id="left_delete">左侧出</span>
+            <span id="right_delete">右侧出</span>
+        </div>
+        <div id="show"></div>
+    </section>
+    <script type="text/javascript">
+    var left_in_ = document.getElementById('left_in'),
+        right_in_ = document.getElementById('right_in'),
+        left_delete_ = document.getElementById('left_delete'),
+        right_delete_ = document.getElementById('right_delete'),
+        text_ = document.getElementById('text'),
+        show_ = document.getElementById('show');
+    left_in_.addEventListener("click", function() {
+        addNode("left");
+    });
+    right_in_.addEventListener("click", function() {
+        addNode("right");
+    });
+    left_delete_.addEventListener("click", function() {
+        removeNode("left");
+    });
+    right_delete_.addEventListener("click", function() {
+        removeNode("right");
+    });
+
+    function addNode(direction) {
+        var value_ = text_.value;
+        if (value_ == "") {
+            alert("请输入内容");
+        } else if (!/^[0-9]*$/.test(value_)) {
+            alert("输入的内容必须为数字");
+        } else if (direction == "left") {
+            var span_ = document.createElement("span");
+            span_.innerHTML = value_;
+            if (show_.firstChild) {
+            	show_.insertBefore(span_, show_.firstChild);
+            } else {
+                show_.appendChild(span_);
+            }
+        } else {
+            var span_ = document.createElement("span");
+            span_.innerHTML = value_;
+            show_.appendChild(span_);
+        }
+    }
+
+    function removeNode(direction) {
+        if (show_.firstChild) {
+            if (direction == "left") {
+                var node_ = show_.firstChild;
+                show_.removeChild(node_);
+            } else {
+                var node_ = show_.lastChild;
+                show_.removeChild(node_);
+            }
+        } else {
+            alert("无法删除，因为已经没有内容了");
+        }
+    }
+    </script>
+</body>
+
+</html>
