@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>JS class04</title>
+    <title>JS class05</title>
     <style type="text/css">
     html,
     body,
@@ -16,7 +16,7 @@
     }
     
     .wrp {
-        width: 1000px;
+        min-width: 1000px;
         margin: 0 auto;
     }
     
@@ -53,7 +53,7 @@
     #show {
         text-align: center;
         width: 100%;
-        height: 150px;
+        height: 400px;
         margin: 20px auto;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -64,11 +64,8 @@
     }
     
     #show span {
-        /*padding: 10px 20px;*/
-        width: 12px;
-        flex: 1;
+        width: 20px;
         background: #ff2121;
-        /*display: inline-block;*/
         margin-left: 5px;
         color: #fff;
         font-size: 15px;
@@ -121,61 +118,59 @@
         removeNode("right");
     });
 
-    // left_in_.addEventListener("click", function() {
-    //     addNode("left")
-    // });
-    // right_in_.addEventListener("click", function() {
-    //     addNode("right");
-    // });
-    // left_delete_.addEventListener("click", function() {
-    //     removeNode("left");
-    // });
-    // right_delete_.addEventListener("click", function() {
-    //     removeNode("right");
-    // });
-
     //添加元素 传入方向值
     function addNode(direction) {
         //获取输入框的内容
         //判断是否为空 是否为数字 再判断传入的方向值采取前置插入还是后置插入
-        var value_ = text_.value;
+        var value_ = text_.value,
+            innerspan = show_.getElementsByTagName('span'),
+            length_ = innerspan.length;
+        console.log(innerspan);
         if (value_ == "") {
             alert("请输入内容");
+            return false;
         } else if (isNaN(value_)) {
             // else if (!/^[0-9]*$/.test(value_)) {
             alert("输入的内容必须为数字");
-        } else if (direction == "left") {
-            var span_ = document.createElement("span");
-            span_.style.height = '' + value_ + '%';
-            if (show_.firstChild) {
-                show_.insertBefore(span_, show_.firstChild);
-                text_.value = "";
-            } else {
-                show_.appendChild(span_);
-                text_.value = "";
-            }
-        } else {
-            var span_ = document.createElement("span");
-            span_.style.height = '' + value_ + '%';
-            // span_.innerHTML = value_;
+            return false;
+        };
+        if (value_ <= 10 || value_ >= 100) {
+            alert("请输入10-100之间的数字");
+            return false;
+        };
+        if (length_ >= 60) {
+            alert("内容不能超过60个");
+            return false;
+        }
+        var span_ = document.createElement("span");
+        span_.style.height = value_ + '%';
+        if (!show_.firstChild) {
             show_.appendChild(span_);
             text_.value = "";
-        }
+        } else if (direction == "left") {
+            show_.insertBefore(span_, show_.firstChild);
+            text_.value = "";
+        } else {
+            show_.appendChild(span_);
+            text_.value = "";
+        };
     }
     //删除元素 传入方向值
     //判断是否还存在内容 再判断方向值 然后获取删除元素的内容弹窗确认
     function removeNode(direction) {
         if (show_.firstChild) {
             if (direction == "left") {
-                var node_ = show_.firstChild;
-                var text_ = show_.firstChild.innerHTML;
-                if (confirm('删除的是第一个元素，内容为“' + text_ + '”')) {
+                var node_ = show_.firstChild,
+                    text_ = show_.firstChild.style.height;
+                text_ = text_.slice(0, -1);
+                if (confirm('删除的是第一个元素，高度为“' + text_ + '”')) {
                     show_.removeChild(node_);
                 };
             } else {
-                var node_ = show_.lastChild;
-                var text_ = show_.lastChild.innerHTML;
-                if (confirm('删除的是最后一个元素，内容为“' + text_ + '”')) {
+                var node_ = show_.lastChild,
+                    text_ = show_.lastChild.style.height;
+                text_ = text_.slice(0, -1);
+                if (confirm('删除的是最后一个元素，高度为“' + text_ + '”')) {
                     show_.removeChild(node_);
                 };
             }
