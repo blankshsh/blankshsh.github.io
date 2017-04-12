@@ -18,10 +18,10 @@
     </ul>
     <ul id="resort">
         <!-- 
-    <li>第一名：北京空气质量：<b>90</b></li>
-    <li>第二名：北京空气质量：<b>90</b></li>
-    <li>第三名：北京空气质量：<b>90</b></li>
-     -->
+        <li>第一名：北京空气质量：<b>90</b></li>
+        <li>第二名：北京空气质量：<b>90</b></li>
+        <li>第三名：北京空气质量：<b>90</b></li>
+        -->
     </ul>
     <button id="sort-btn">排序</button>
     <script type="text/javascript">
@@ -42,18 +42,24 @@
           ……
         ]
         */
+
+        //获取 数据列表 跟长度
         var source_ = document.getElementById('source'),
             li_ = source_.getElementsByTagName('li'),
-            length = li_.length;
-        console.log(li_);
-        var data = [];
+            length = li_.length,
+            data = [];
+        // console.log(li_);
+
         for (var i = 0; i < length; i++) {
-            var inner_ = li_[i].innerText;
-            // console.log(li_);
-            // console.log(inner_);
-            var arr = [];
-            arr.push(inner_.slice(0, 2));
-            arr.push(inner_.slice(-2));
+            //获取数据单项的内容 创建空数组
+            var $inner = li_[i].innerText,
+                arr = [];
+            //获取 空字跟：在数组中的位置  并截取我们需要的内容添加到数组中
+            //截取是为了防止城市名字不定 跟分数长度不定的情况
+            $index1 = $inner.indexOf("空");
+            $index2 = $inner.indexOf("：") + 1;
+            arr.push($inner.slice(0, $index1));
+            arr.push($inner.slice($index2));
             data.push(arr);
         }
         return data;
@@ -77,32 +83,31 @@
      */
     function render(data) {
         var length = data.length;
+        var box = document.getElementById('resort');
         for (var i = 0; i < length; i++) {
-            var li_ = document.createElement("li");
-            var b_ = document.createElement("b");
-            var box = document.getElementById('resort');
-            li_.innerHTML = '第' + (i + 1) + '名：' + data[i][0] + '，空气质量：';
-            b_.innerHTML=data[i][1];
-            li_.appendChild(b_);
-            box.appendChild(li_);
+            var $li = document.createElement("li");
+            var $b = document.createElement("b");
+            $li.innerHTML = '第' + (i + 1) + '名：' + data[i][0] + '，空气质量：';
+            $b.innerHTML = data[i][1];
+            $li.appendChild($b);
+            box.appendChild($li);
         }
     }
 
     function btnHandle() {
         var aqiData = getData();
-        console.log(aqiData);
+        // console.log(aqiData);
         aqiData = sortAqiData(aqiData);
-        console.log(aqiData);
+        // console.log(aqiData);
         render(aqiData);
     }
 
     function init() {
-        var btn_ = document.getElementById('sort-btn');
-        btn_.addEventListener("click", function() {
+        var $btn = document.getElementById('sort-btn');
+        $btn.addEventListener("click", function() {
             btnHandle();
         });
         // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
-
     }
 
     init();

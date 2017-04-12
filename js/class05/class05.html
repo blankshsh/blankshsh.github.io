@@ -15,6 +15,11 @@
         margin: 0;
     }
     
+    .wrp {
+        width: 1000px;
+        margin: 0 auto;
+    }
+    
     .control {
         text-align: center;
         font-size: 20px;
@@ -47,25 +52,38 @@
     
     #show {
         text-align: center;
-        width: 800px;
+        width: 100%;
+        height: 150px;
         margin: 20px auto;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: 20px;
     }
     
     #show span {
-        padding: 10px 20px;
+        /*padding: 10px 20px;*/
+        width: 12px;
+        flex: 1;
         background: #ff2121;
-        display: inline-block;
-        margin-left: 20px;
+        /*display: inline-block;*/
+        margin-left: 5px;
         color: #fff;
         font-size: 15px;
         margin-top: 20px;
         border-radius: 4px;
     }
+    
+    #show span:first-child {
+        margin-left: 0;
+    }
     </style>
 </head>
 
 <body>
-    <section>
+    <div class="wrp">
         <div class="control">
             <input type="text" id="text">
             <span id="left_in">左侧入</span>
@@ -74,7 +92,7 @@
             <span id="right_delete">右侧出</span>
         </div>
         <div id="show"></div>
-    </section>
+    </div>
     <script type="text/javascript">
     //获取4个按钮  输入框跟输出的块
     var left_in_ = document.getElementById('left_in'),
@@ -93,8 +111,12 @@
         addNode("left");
     });
     bind_(right_in_, "click", function() {
+        addNode("right");
+    });
+    bind_(left_delete_, "click", function() {
         removeNode("left");
     });
+
     bind_(right_delete_, "click", function() {
         removeNode("right");
     });
@@ -124,7 +146,7 @@
             alert("输入的内容必须为数字");
         } else if (direction == "left") {
             var span_ = document.createElement("span");
-            span_.innerHTML = value_;
+            span_.style.height = '' + value_ + '%';
             if (show_.firstChild) {
                 show_.insertBefore(span_, show_.firstChild);
                 text_.value = "";
@@ -134,7 +156,8 @@
             }
         } else {
             var span_ = document.createElement("span");
-            span_.innerHTML = value_;
+            span_.style.height = '' + value_ + '%';
+            // span_.innerHTML = value_;
             show_.appendChild(span_);
             text_.value = "";
         }
