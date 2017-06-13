@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>闪电修工程师问答</title>
+    <link rel="stylesheet" type="text/css" href="./build/css/p_answer.css">
+    <script>
+    (function() {
+        function o() {
+            document.documentElement.style.fontSize = (document.documentElement.clientWidth > 750 ? 750 : document.documentElement.clientWidth) / 15 + "px"
+        }
+        // console.log(document.documentElement.clientWidth);
+        var e = null;
+        window.addEventListener("resize", function() {
+            clearTimeout(e), e = setTimeout(o, 300)
+        }, !1), o()
+    })(window);
+    </script>
+</head>
+
+<body>
+    <section class="wrp">
+        <header>
+            <div class="headerbox">
+                <img src="./build/img/phone/p_answer_logo.png" alt="">
+                <div class="textbox">
+                    <p>闪电修工程师问答</p>
+                    <span>让售后成为最好的服务！</span>
+                </div>
+            </div>
+        </header>
+        <section class="content">
+            <div class="userin" id="userin" style="display: none">
+                <input type="text" name="user" placeholder="请输入名字">
+                <span id="goform">开始答题</span>
+            </div>
+            <div class="endscore" id="endscore" style="display: none">
+                <h3>工程师:<span></span></h3>
+                <h4>闪电修工程师问答一共有100道题目<br><span></span><br>是否需要重新答题？</h4>
+                <span id="newanswer" class="btn">重新答题</span>
+            </div>
+            <form action="php.php" id="form" style="display: none">
+                <h1>单选题（每题1分）</h1>
+                <ul class="answer_radio" id="answer_radio">
+                </ul>
+                <h1>判断题（每题1分）</h1>
+                <ul class="answer_judgment" id="answer_judgment">
+                </ul>
+                <h1>多选题（每题1分）</h1>
+                <h1 class="s_p">少选、多选、没选、选错均不得分</h2>
+                <ul class="answer_checkbox" id="answer_checkbox">
+                </ul>
+                <input type="submit" value="提交回答" class="submit" id="submit">
+                <span id="newanswer_after" class="btn" style="display: none;">重新答题</span>
+            </form>
+        </section>
+    </section>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="./build/js/min/data.min.js"></script>
+    <!-- 
+    <script type="text/javascript" src="./build/js/answer.js"></script>
+    <script type="text/javascript" src="./build/js/answer_after.js"></script> -->
+    <script type="text/javascript" src="./build/js/min/answer.min.js"></script>
+    <script type="text/javascript" src="./build/js/min/answer_after.min.js"></script>
+</body>
+</html>
